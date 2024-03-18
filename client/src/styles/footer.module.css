@@ -1,0 +1,89 @@
+/* Styling Below */
+
+.footerWrapper {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background: #f4f4f5;
+    color: #64748B;
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    align-self: baseline;
+}
+
+.title {
+    font-size: 2rem;
+    color: teal;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.iconList ul {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+}
+
+.icons {
+    font-size: 2rem;
+}
+
+.logo img {
+    position: absolute;
+    left: 1%;
+    top: -40%;
+    width: 120px;
+}
+
+.footerBottom {
+    padding: 1.5rem 0.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0097b2;
+    color: #fff;
+    font-weight: bold;
+    position: relative;
+}
+
+@media (max-width: 450px) {
+    .footerWrapper {
+        padding: 0.5rem;
+    }
+
+    .title {
+        font-size: 1rem;
+    }
+
+    .list li {
+        font-size: 0.8rem;
+    }
+
+    .logo img {
+        width: 75px;
+        top: -5%;
+    }
+
+    .iconList svg {
+        font-size: 1.5rem;
+    }
+
+    .copyright p {
+        font-size: 0.7rem;
+        letter-spacing: 0.5px;
+        font-weight: lighter;
+    }
+
+    .footerBottom {
+        margin-bottom: 5rem;
+
+    }
+
+}

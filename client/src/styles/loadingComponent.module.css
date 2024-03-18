@@ -1,0 +1,66 @@
+/* Styling Below */
+
+.card {
+    border: 1px solid var(--background);
+    position: relative;
+    padding: 1rem;
+}
+
+.imgBox {
+    padding: 0.5rem 1rem;
+    width: 100%;
+    height: 120px;
+    background: #DDDBDD;
+    position: relative;
+    overflow: hidden;
+    animation: slide 1s alternate infinite;
+}
+
+.contentBox {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    height: 125px;
+}
+
+.price {
+    padding: 1rem 0;
+    margin-block: 0.5rem;
+    width: 50%;
+    background: #DDDBDD;
+    animation: slide 1s alternate infinite;
+}
+
+.title {
+    padding: 1rem 0;
+    width: 75%;
+    background: #DDDBDD;
+    animation: slide 1s alternate infinite;
+}
+
+.desc {
+    margin-top: 2rem;
+    padding: 0.8rem;
+    width: 100%;
+    background: #DDDBDD;
+    animation: slide 1s alternate infinite;
+}
+
+@keyframes slide {
+    from {
+        background: #DDDBDD;
+    }
+
+    to {
+        background: #f1f1f1c3;
+    }
+}
+
+@media (max-width: 450px) {
+    .desc {
+        display: none;
+    }
+    .contentBox{
+        height: 90px;
+    }
+}
