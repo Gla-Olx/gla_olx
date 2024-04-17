@@ -1,0 +1,461 @@
+/* Styling Below */
+
+.container {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    padding: 2rem 0;
+    padding-bottom: 5rem;
+}
+
+.box {
+    width: 90%;
+    margin: auto;
+    background: #fff;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    border: 2px solid #000;
+}
+
+.userListBox {
+    border-right: 2px solid #000;
+
+}
+
+.userListBox ul {
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    overflow-y: auto;
+    height: 425px;
+}
+
+.userListBox ul li {
+    padding: 0.3rem 0.5rem;
+    border-bottom: 2px solid #000;
+    position: relative;
+    transition: 0.3s ease-in-out;
+}
+
+.userListBox ul li:hover {
+    /* background: #C8F7F5; */
+    cursor: pointer;
+}
+
+.userListBox ul li span {
+    position: absolute;
+    right: 0;
+    top: 10%;
+    font-size: 1.5rem;
+    color: #728D90;
+    font-weight: 700;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+
+.userListBox ul li img {
+    position: absolute;
+    left: 3%;
+    top: 20%;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.userListBox ul li span div {
+    position: absolute;
+    font-size: 1rem;
+    font-weight: normal;
+    right: 75%;
+    bottom: 5%;
+    padding: 0.5rem;
+    background: #fff;
+    z-index: 1;
+    border: 1px solid #EBEEEF;
+    border-radius: 0.5rem;
+    transition: 0.3s ease-in-out;
+}
+
+.userListBox ul li span div:hover {
+    background: #EBEEEF;
+}
+
+.userListBox ul li span:hover div {
+    visibility: visible;
+}
+
+
+.userListBox ul li a {
+    margin-left: 4rem;
+    font-size: 1rem;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    color: #0F9DB7;
+    transition: 0.4s ease-in-out;
+}
+
+.userListBox ul li p {
+    margin-left: 4rem;
+    font-size: 0.78rem;
+    color: #303955;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.userListBox ul li a+p {
+    font-size: 0.7rem;
+    color: #7F979A;
+}
+
+.userListBox ul li a:hover,
+.userListBox ul li svg:hover {
+    color: var(--secondary);
+}
+
+.userListBox ul::-webkit-scrollbar {
+    width: 3px;
+}
+
+.userListBox ul::-webkit-scrollbar-track {
+    background: #0097b294;
+    cursor: pointer;
+}
+
+.userListBox ul::-webkit-scrollbar-thumb {
+    background: var(--secondary);
+    cursor: pointer !important;
+    transition: 0.4s ease-in-out;
+}
+
+.userListBox ul::-webkit-scrollbar-thumb:hover {
+    background: #0097b2b5;
+}
+
+.chatHeader {
+    padding: 0.8rem !important;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgb(235, 236, 237);
+    text-transform: uppercase;
+    font-size: 1.5rem;
+    color: var(--secondary);
+}
+
+.chatHeader div {
+    padding: 0.5rem !important;
+    display: flex;
+    gap: 0.9rem;
+    justify-content: flex-end;
+    align-items: center;
+    background: none;
+    color: #728D90 !important;
+}
+
+.chatHeader div svg {
+    color: #728D90 !important;
+    font-weight: bolder !important;
+    filter: invert(0.5);
+}
+
+.chatHeader div span {
+    font-size: 2rem;
+}
+
+.quickFilter {
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border: 1px solid var(--secondary);
+    border-left: none;
+    border-right: none;
+}
+
+.quickFilter p {
+    color: rgb(0, 151, 178);
+    font-weight: 400;
+    font-style: normal;
+    font-size: 12px;
+    margin-bottom: 0.3rem;
+}
+
+.quickFilter div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding-left: 0.5rem;
+}
+
+.quickFilter div span {
+    font-size: 0.65rem;
+    color: #000;
+    padding: 3px 0.5rem;
+    border-radius: 1rem;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    border: 1px solid #C8F8F6;
+    transition: 0.3s ease-in-out;
+}
+
+.quickFilter div span.active {
+    border-color: #C8F8F6;
+    background: #C8F8F6;
+}
+
+.quickFilter div span:hover {
+    cursor: pointer;
+    background: #C8F8F6;
+    border-color: #C8F8F6;
+}
+
+
+
+
+/* Chat Section Editing */
+
+.chatBox {
+    display: grid;
+    grid-template-rows: 1fr 0.1fr;
+}
+
+.chatContent {
+    display: grid;
+    grid-template-rows: 0.2fr 1fr;
+}
+
+.chatDetails {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.chatDetails img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+}
+
+.chatDetails h3 {
+    color: green;
+    font-size: 1.2rem;
+    font-weight: 800 !important;
+}
+
+.chatUser {
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    border-bottom: 2px solid #000;
+    position: relative;
+}
+
+.chatUser h3 {
+    color: #0F9DB7;
+}
+
+.userProduct {
+    display: flex;
+    justify-content: start;
+    padding: 0.1rem 0.5rem;
+    align-items: center;
+    gap: 5rem;
+    border-bottom: none;
+}
+
+.userProduct span {
+    font-size: 1rem;
+    color: #7f8080;
+    font-weight: light;
+}
+
+.chatItem {
+    padding: 2rem 0.67rem;
+    gap: 5px;
+    height: 400px;
+    overflow-y: auto;
+    background: #EBEEEF;
+}
+
+.chatItem div {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.chatItem div h6 {
+    color: #3D6164;
+    align-self: center;
+    text-transform: uppercase;
+    font-size: 0.6rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.chatItem::-webkit-scrollbar {
+    width: 3px;
+}
+
+.chatItem::-webkit-scrollbar-track {
+    cursor: pointer;
+    border-radius: 1rem;
+}
+
+.chatItem::-webkit-scrollbar-thumb {
+    background: #6BC3D2;
+    cursor: pointer !important;
+    transition: 0.4s ease-in-out;
+    border-radius: 1rem;
+}
+
+.chatItem::-webkit-scrollbar-thumb:hover {
+    background: #6BC3D2b5;
+}
+
+
+.chatItem p {
+    padding: 0.5rem 1.5rem;
+    text-align: left;
+    border-radius: 5px;
+    color: #000;
+    font-size: 0.88rem;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    max-width: 60%;
+    position: relative;
+    margin-block: 0.5rem;
+}
+
+.chatItem p::after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: -40%;
+    clip-path: polygon(17% 0, 100% 0, 100% 41%, 71% 59%);
+    width: 15px;
+    height: 15px;
+}
+
+.chatItem span {
+    position: absolute;
+    right: 5%;
+    bottom: 0;
+    font-family: monospace;
+    font-size: 8px;
+    display: flex;
+    gap: 2px;
+}
+
+.me {
+    align-self: flex-end;
+    background: #C8F8F6;
+    border-bottom-right-radius: 0 !important;
+}
+
+.me::after {
+    background: #C8F8F6;
+}
+
+.you {
+    align-self: flex-start;
+    background: #CCD5D6;
+    border-bottom-left-radius: 0 !important;
+}
+
+.you::after {
+    left: 0;
+    transform: rotateY(180deg);
+    background: #CCD5D6;
+}
+
+.chatInput {
+    padding: 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 0.1fr;
+    align-items: center;
+    gap: 0.5rem;
+    background: #EBEEEF;
+    border-top: 2px solid #D9D9D9;
+}
+
+.chatInput div {
+    position: relative;
+}
+
+.chatInput span {
+    position: absolute;
+    right: 2%;
+    top: 25%;
+    cursor: pointer;
+}
+
+.chatInput input {
+    border: none;
+    outline: none;
+    padding: 5px 0.5rem;
+    padding-right: 1.5rem;
+    background: #fff;
+    overflow-x: auto;
+    font-size: 0.8rem;
+    color: rgb(56, 55, 55);
+    border-radius: 0.5rem;
+    width: 100%;
+}
+
+.chatInput input::placeholder {
+    color: rgb(56, 55, 55);
+}
+
+.chatInput button svg {
+    border-radius: 50%;
+    padding: 5px;
+    transition: 0.4s ease-in-out;
+}
+
+.chatUser span {
+    position: absolute;
+    right: 2.5%;
+    font-weight: bold;
+    cursor: pointer;
+    color: #0F9DB7;
+}
+
+.noChat {
+    background: #EBECED !important;
+
+}
+
+.noChats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    color: #7f8080;
+}
+
+.noChats p {
+    font-size: 1rem;
+    font-weight: lighter !important;
+    text-align: center;
+}
+
+@media (max-width: 450px) {
+    .container{
+        padding: 0;
+    }
+    .box {
+        width: 100%;
+        grid-template-columns: 1fr;
+    }
+
+    .mobileChatBox,
+    .hideUserListBox {
+        display: none;
+    }
+
+    .mobileUserListBox {
+        display: block;
+    }
+
+}

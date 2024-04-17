@@ -1,0 +1,35 @@
+/* Loader Styling Below */
+
+.loaderBox{
+    background: var(--secondary);
+    height: 100vh;
+    display: flex;   
+    justify-content: center;
+    align-items: center;
+}
+
+h1{
+    font-size: 5rem;
+    font-weight: bold;
+    color: #e6e6e6;
+}
+
+.dash{
+    color: aquamarine;
+    position: relative;
+    width: 3.5rem;
+}
+
+.dash::before{
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: #e6e6e6;
+    height: 0.6rem;
+    width: 3rem;
+}
+.olxLoader img{
+    width: 3.75rem;
+    height: 3.75rem;
+}

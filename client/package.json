@@ -5,6 +5,7 @@
   "dependencies": {
     "@cloudinary/react": "^1.13.0",
     "@cloudinary/url-gen": "^1.19.0",
+    "@gsap/react": "^2.1.0",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
