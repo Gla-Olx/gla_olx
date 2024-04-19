@@ -14,14 +14,18 @@ from pathlib import Path
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api	
+# from dotenv import load_dotenv
+# import os
 
+# CONFIG_FILE_PATH = '.env'
+# load_dotenv(CONFIG_FILE_PATH)
+# print(os.environ.get("cloud_name"))
 
-
-cloudinary.config( 
-  	cloud_name = "dambmqy1v",
-  	api_key = "223173247979215",
-  	api_secret = "Yd_TC-KULYExVtBhbCyAsHuOvjU"
-)
+# cloudinary.config( 
+#   	cloud_name = os.environ.get("cloud_name"),
+#   	api_key = os.environ.get("api_key"),
+#   	api_secret = os.environ.get("api_secret")
+# )
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -34,9 +38,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-tawdltu7t$9j+q-u2u44v8sf9$94$f&m#3m!*$%9153evnbu1s'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+# DEBUG = os.getenv("DEBUG", 'False').lower() in ('true', '1', 't')
+DEBUG=True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition

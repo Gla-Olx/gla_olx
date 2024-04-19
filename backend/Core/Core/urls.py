@@ -16,7 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from gla_olx.views import ProductCreateAPIView, ProductListAPIView, ProductDetailAPIView, ProductDeleteAPIView
+from gla_olx.views import ProductCreateAPIView, ProductListAPIView, ProductDetailAPIView, ProductDeleteAPIView,ProductUpdateAPIView, ProductFilterListAPIView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,6 +24,8 @@ urlpatterns = [
     path('api/products/', ProductListAPIView.as_view(), name='product_list'),
     path('api/products/<int:pk>/', ProductDetailAPIView.as_view(), name='product_detail'),
     path('api/products/<int:pk>/delete/', ProductDeleteAPIView.as_view(), name='product_delete'),
+    path('api/products/update/', ProductUpdateAPIView.as_view(), name='product_update'),
+    path('api/products', ProductFilterListAPIView.as_view(), name='product_filter'),
 
 
 ]
