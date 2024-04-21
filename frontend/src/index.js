@@ -27,7 +27,7 @@ import LoaderScreen from './components/LoadingScreen';
 
 
 const NavbarWrapper = () => {
-  const [isLoaded, setIsLoaded] = useState(false);
+  const [isLoaded, setIsLoaded] = useState(true);
 
 
   if (isLoaded) {

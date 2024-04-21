@@ -6,6 +6,7 @@ class ProductDetails(models.Model):
     product_desc = models.TextField()
     product_category = models.CharField(max_length=100)
     product_subcategory = models.CharField(max_length=100)
+    seller_id = models.CharField(max_length=100, blank=False, null=False, default='admin')
     seller_name = models.CharField(max_length=100)
     seller_picture = models.URLField()
     product_status = models.CharField(max_length=50)

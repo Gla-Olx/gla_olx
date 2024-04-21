@@ -31,7 +31,7 @@ export const Home = () => {
 
 
   const context = useContext(glxContext);
-  const { getItem, items, getItemBySearch, searchItem, setSearchItem, showSkeleton, loadMoreBtn } = context;
+  const { getItem, items, getItemBySearch, searchItem, setSearchItem, showSkeleton, loadMoreBtn, getItems } = context;
 
   useEffect(() => {
     gsap.to('.animatedGroup', {
@@ -49,6 +49,8 @@ export const Home = () => {
       setCurrentUser(currentUser)
     }
     getItem(limit, currentUser)
+
+    getItems()
 
 
   }, [])

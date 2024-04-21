@@ -6,20 +6,26 @@ from rest_framework.views import APIView
 from .models import *
 from .serializers import ProductSerializer, ProductViewSerializer
 import cloudinary
+import json
 
 class ProductCreateAPIView(APIView):
     def post(self, request, format=None):
-        serializer = ProductSerializer(data=request.data)
+        data = json.loads(request.data['data'])
+        print(data)
+        serializer = ProductSerializer(data=data)
         urls=[]
         get_img_files = request.FILES.items()
         for file_key, file in get_img_files:
             url= upload_file_to_server(file_path=file)
             urls.append(url)        
+
         if serializer.is_valid():
             for i, url in enumerate(urls): 
                 serializer.validated_data[f'proimg{i+1}'] = url
             serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
+            return Response({'success': True, 'message': 'Product created successfully', 'data': serializer.data, }, status=status.HTTP_201_CREATED)
+        if serializer.errors:
+            print(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class ProductListAPIView(generics.ListAPIView):

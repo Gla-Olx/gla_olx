@@ -29,11 +29,9 @@ SECRET_KEY = env("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # Debug setting
-# DEBUG = env("DEBUG")
-# Allowed hosts setting
-# ALLOWED_HOSTS = env('ALLOWED_HOSTS', cast=lambda v: [s.strip() for s in v.split(',')])
-# ALLOWED_HOSTS = []
 DEBUG = env.bool('DEBUG', default=True)
+
+# Allowed hosts setting
 
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', default=['localhost', '127.0.0.1'])
 
@@ -49,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'corsheaders',
     'gla_olx'
 ]
 
@@ -60,7 +59,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 ROOT_URLCONF = 'Core.urls'
 
@@ -83,8 +86,7 @@ TEMPLATES = [
 WSGI_APPLICATION = 'Core.wsgi.application'
 
 
-# Database
-# https://docs.djangoproject.com/en/5.0/ref/settings/#databases
+
 
 DATABASES = {
     'default': {

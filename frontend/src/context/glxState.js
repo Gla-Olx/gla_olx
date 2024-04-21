@@ -10,7 +10,6 @@ import {
     deleteDoc,
 } from "firebase/firestore";
 import { db } from "../middleware/firebase"
-import { useNavigate } from "react-router-dom";
 
 
 const GlxState = ({ children }) => {
@@ -21,9 +20,9 @@ const GlxState = ({ children }) => {
     const [show, setShow] = useState("hidden")
     const [message, setMessage] = useState("")
     const [showSkeleton, setShowSkeleton] = useState(false)
-    // const navigate = useNavigate();
     const [searchItem, setSearchItem] = useState([])
     const host = "http://localhost:8080"
+    const host2 = "http://localhost:8000"
 
     // Function to get Items
     const getItem = async (limit, currentUser) => {
@@ -35,10 +34,23 @@ const GlxState = ({ children }) => {
             }
         })
         const { data, loadMore } = await res.json()
-        setItems(data)
+        // setItems(data)
         if (loadMore === false) {
             setLoadMore(false)
         }
+        setShowSkeleton(false);
+    }
+
+    const getItems = async (limit, currentUser) => {
+        setShowSkeleton(true);
+        const res = await fetch(`${host2}/api/products/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        })
+        const data = await res.json()
+        setItems(data)
         setShowSkeleton(false);
     }
 
@@ -87,12 +99,18 @@ const GlxState = ({ children }) => {
     // Function to create Item
     const createItem = async (item) => {
         setShowSkeleton(true);
-        const { title, desc, price, category, subCategory, seller, sellerName, sellerPic } = item
-        const metaData = { title, desc, price, category, subCategory, seller, sellerName, sellerPic }
-        const formData = new FormData()
-        item.images.forEach((file) => formData.append("media", file));
-        formData.append('metaData', JSON.stringify(metaData))
-        const res = await fetch(`${host}/api/item`, {
+
+        // const { title, desc, price, category, subCategory, seller, sellerName, sellerPic } = item
+        // const metaData = { title, desc, price, category, subCategory, seller, sellerName, sellerPic }
+        const formData = new FormData();
+
+        for (let i = 0; i < item.images.length; i++) {
+            formData.append(`proimg${i + 1}`, item.images[i])
+        }
+        delete item.images
+
+        formData.append('data', JSON.stringify(item))
+        const res = await fetch(`${host2}/api/products/create/`, {
             method: 'POST',
             body: formData
         })
@@ -100,9 +118,9 @@ const GlxState = ({ children }) => {
         if (result.success) {
             setMessage("Ad Created Successfully")
             showAlert()
-            setItems([...items, result.data])
+        //     setItems([...items, result.data])
             setShowSkeleton(false);
-            // navigate("/myads") // TODO: Redirect to myads page
+            // TODO: Redirect to myads page
         }
     }
 
@@ -166,7 +184,7 @@ const GlxState = ({ children }) => {
         }, 2500)
     }
     return (
-        <glxContext.Provider value={{ createItem, getItem, deleteItem, getItemBySearch, items, addUser, searchItem, setSearchItem, getChattingWith, getAllUsersData, users, show, message, setMessage, setShow, getUserItem, userItems, showSkeleton, loadMoreBtn, showAlert }}>
+        <glxContext.Provider value={{ getItems, createItem, getItem, deleteItem, getItemBySearch, items, addUser, searchItem, setSearchItem, getChattingWith, getAllUsersData, users, show, message, setMessage, setShow, getUserItem, userItems, showSkeleton, loadMoreBtn, showAlert }}>
             {children}
         </glxContext.Provider>
     )

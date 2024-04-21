@@ -42,7 +42,19 @@ export const Sell = () => {
         let coverImg = coverFile;
         let images = files.slice(0, 4);
         images.push(coverImg)
-        createItem({ title, desc, price, category, subCategory, seller, sellerName, images, sellerPic: profilePic })
+
+        createItem({ 
+            product_title: title,
+            product_desc: desc, 
+            product_price: price, 
+            product_category: category,
+            product_subcategory: subCategory, 
+            seller_id: seller,
+            seller_name: sellerName, 
+            images, 
+            seller_picture: profilePic.includes("/images/user.png") ? `${window.location.origin}/images/user.png` : profilePic,
+            product_status: "active"
+         })
     }
 
     useEffect(() => {
