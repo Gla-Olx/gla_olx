@@ -33,6 +33,16 @@ class ProductCreateAPIView(APIView):
 class ProductListAPIView(generics.ListAPIView):
     queryset = ProductDetails.objects.all()
     serializer_class = ProductViewSerializer
+    
+class FetchProducts(APIView):
+    def get(self, request):
+        intial_product_show= 9
+        list_products= ProductDetails.objects.exclude(seller_id="nit").order_by('-created_date')[:intial_product_show]
+        serializer = ProductViewSerializer(list_products, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        
 
 class ProductDetailAPIView(generics.RetrieveAPIView):
     queryset = ProductDetails.objects.all()
