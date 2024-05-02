@@ -48,7 +48,7 @@ export const Home = () => {
     if (currentUser) {
       setCurrentUser(currentUser)
     }
-    getItem(limit, currentUser)
+    // getItem(limit, currentUser)
 
     getItems()
 

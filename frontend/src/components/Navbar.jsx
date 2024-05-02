@@ -5,9 +5,11 @@ import Cookies from 'js-cookie'
 import { AiOutlinePlusCircle, AiOutlineHeart } from 'react-icons/ai'
 import { BiHelpCircle, BiSpreadsheet } from 'react-icons/bi'
 import { BsChatDots } from 'react-icons/bs'
+import { FaPlus } from "react-icons/fa";
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { signOut } from "firebase/auth";
 import { auth } from "../middleware/firebase"
+
 
 
 const Navbar = () => {
@@ -196,6 +198,21 @@ const Navbar = () => {
                 </div>
                 <div className={styles.navbarBottom}>
                     <img src="images/logo.png" alt="" />
+                    <div className={styles.navbarBottomLinks}>
+                        <a className={styles.navLinkBottom} href="#">Lab Items</a>
+                        <a className={styles.navLinkBottom} href="#">Room Items</a>
+                        <a className={styles.navLinkBottom} href="#">Books</a>
+                        <a className={styles.navLinkBottom} href="#">Sports Item</a>
+                        <a className={styles.navLinkBottom} href="#">Gadgets</a>
+                        <a className={styles.navLinkBottom} href="#">Accessories</a>
+                        <a className={styles.navLinkBottom} href="#">Clothes</a>
+                    </div>
+                    <button className={styles.bookmarkBtn}>
+                        <span className={styles.IconContainer}>
+                            <FaPlus />
+                        </span>
+                        <p className={styles.text}>Sell</p>
+                    </button>
                 </div>
             </nav>
         </>

@@ -18,24 +18,27 @@
     background: #fff;
     gap: 4px;
 }
-.navigation li{
+
+.navigation li {
     list-style: none;
     padding: 0.6rem 2rem;
     background-color: #efefef;
     position: relative;
-    
+
 }
-.navigation li a{
+
+.navigation li a {
     color: #42413d;
     text-decoration: none;
     text-transform: uppercase;
     font-size: 0.85rem;
     font-weight: 700;
+    letter-spacing: 1px;
 }
 
 
 
-.navigation li.active::after{
+.navigation li.active::after {
     content: "";
     position: absolute;
     left: 0;
@@ -45,28 +48,120 @@
     background: #0097B2;
 }
 
-.links{
+.links {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 1rem;
     padding: 0 2rem;
 }
-.links img{
+
+.links img {
     width: 1.25rem;
     cursor: pointer;
 }
 
-.navbarBottom{
+.navbarBottom {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
     width: 100%;
     background: #fff;
+    position: relative;
 }
-.navbarBottom img{
+
+.navbarBottom img {
+    margin-top: 1rem;
     width: 20%;
 }
+
+.navbarBottomLinks {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 3rem;
+    padding: 0.75rem 2rem;
+
+}
+
+.navbarBottomLinks .navLinkBottom {
+    font-size: 1.2rem;
+    font-family: "Jost", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+.bookmarkBtn {
+    width: 100px;
+    height: 40px;
+    border-radius: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.349);
+    background: #009AAE;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition-duration: 0.3s;
+    overflow: hidden;
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.IconContainer {
+    width: 30px;
+    height: 30px;
+    background:  #fff;
+    border-radius: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 2;
+    transition-duration: 0.3s;
+}
+
+.icon {
+    border-radius: 1px;
+}
+
+.text {
+    height: 100%;
+    width: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 1.2rem;
+    text-transform: uppercase;
+    font-weight: bolder;
+    letter-spacing: 1px;
+    z-index: 1;
+    transition-duration: 0.3s;
+    font-size: 1.04em;
+}
+
+.bookmarkBtn:hover .IconContainer {
+    width: 90px;
+    transition-duration: 0.3s;
+}
+
+.bookmarkBtn:hover .text {
+    transform: translate(10px);
+    width: 0;
+    font-size: 0;
+    transition-duration: 0.3s;
+}
+
+.bookmarkBtn:active {
+    transform: scale(0.95);
+    transition-duration: 0.3s;
+}
+
 
 .userIcon {
     height: 50px;
@@ -136,7 +231,7 @@
     color: #fff;
 }
 
-.active{
+.active {
     text-shadow: 0 0 5px var(--background);
 }
 
