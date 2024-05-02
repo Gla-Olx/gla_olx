@@ -10,9 +10,10 @@ import json
 
 class ProductCreateAPIView(APIView):
     def post(self, request, format=None):
-        data = json.loads(request.data['data'])
-        print(data)
-        serializer = ProductSerializer(data=data)
+        # data = json.loads(request.data['data'])
+        # print(data)
+        serializer=ProductSerializer(data=request.data)
+        # serializer = ProductSerializer(data=data)
         urls=[]
         get_img_files = request.FILES.items()
         for file_key, file in get_img_files:
@@ -26,6 +27,7 @@ class ProductCreateAPIView(APIView):
             return Response({'success': True, 'message': 'Product created successfully', 'data': serializer.data, }, status=status.HTTP_201_CREATED)
         if serializer.errors:
             print(serializer.errors)
+            
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class ProductListAPIView(generics.ListAPIView):
@@ -34,6 +36,7 @@ class ProductListAPIView(generics.ListAPIView):
 
 class ProductDetailAPIView(generics.RetrieveAPIView):
     queryset = ProductDetails.objects.all()
+    
     serializer_class = ProductViewSerializer
     
 class ProductDeleteAPIView(generics.DestroyAPIView):

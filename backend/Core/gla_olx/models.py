@@ -15,3 +15,4 @@ class ProductDetails(models.Model):
     proimg3 = models.URLField()
     proimg4 = models.URLField()
     proimg5 = models.URLField()
+    created_date= models.DateField(auto_now_add=True, null=True)
