@@ -37,7 +37,8 @@ class ProductListAPIView(generics.ListAPIView):
 class FetchProducts(APIView):
     def get(self, request):
         intial_product_show= 9
-        list_products= ProductDetails.objects.exclude(seller_id="nit").order_by('-created_date')[:intial_product_show]
+        current_user = self.request.query_params.get('current_user', None)
+        list_products= ProductDetails.objects.exclude(seller_id=current_user).order_by('-created_date')[:intial_product_show]
         serializer = ProductViewSerializer(list_products, many=True)
 
         return Response(serializer.data, status=status.HTTP_200_OK)
