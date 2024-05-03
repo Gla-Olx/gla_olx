@@ -11,15 +11,12 @@ import json
 class ProductCreateAPIView(APIView):
     def post(self, request, format=None):
         # data = json.loads(request.data['data'])
-<<<<<<< HEAD
 
         # print(data)
         serializer = ProductSerializer(data=request.data)
-=======
         # print(data)
         serializer=ProductSerializer(data=request.data)
         # serializer = ProductSerializer(data=data)
->>>>>>> 5a79fcaa8412ee5efb46696d3958766a980b9983
         urls=[]
         get_img_files = request.FILES.items()
         for file_key, file in get_img_files:
