@@ -4,7 +4,7 @@ from .models import *
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductDetails
-        fields = ['id', 'product_title', 'product_price', 'product_desc', 'product_category', 'product_subcategory', 'seller_name', 'seller_picture', 'product_status']
+        fields = ['product_id', 'product_title', 'product_price', 'product_desc', 'product_category', 'product_subcategory', 'seller_name', 'seller_picture', 'product_status']
         read_only_fields = ['proimg1', 'proimg2', 'proimg3', 'proimg4','proimg5']
 
 

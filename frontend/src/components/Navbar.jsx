@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from 'react'
+import React, { useEffect, useState, useRef, useContext } from 'react'
 import styles from "../styles/navbar.module.css"
 import { Link, Outlet, useLocation, useNavigate, useNavigation } from 'react-router-dom'
 import Cookies from 'js-cookie'
@@ -9,17 +9,28 @@ import { FaPlus } from "react-icons/fa";
 import { IoMdArrowDropdown } from 'react-icons/io'
 import { signOut } from "firebase/auth";
 import { auth } from "../middleware/firebase"
+import SubCategory from './SubCategory'
+import glxContext from '../context/glxContext'
 
 
 
 const Navbar = () => {
     const ref = useRef();
+    const searchRef = useRef();
     const navigate = useNavigate();
     const [currentUser, setCurrentUser] = useState()
     const [nav, setNav] = useState(false)
     const [showDropdown, setShowDropdown] = useState(false)
     const [profilePic, setProfilePic] = useState("/images/user.png")
     const [displayName, setDisplayName] = useState("")
+    const [show, setShow] = useState(false)
+    const [subMenuCategory, setSubMenuCategory] = useState("");
+    const [searchVal, setSearchVal] = useState("")
+
+    const context = useContext(glxContext);
+    const { getItemBySearch, searchItem } = context;
+
+
     let path = useLocation().pathname;
 
     useEffect(() => {
@@ -67,6 +78,31 @@ const Navbar = () => {
         }
         ref.current.style.left = "0%"
     }
+
+    const showSearch = () => {
+        searchRef.current.style.visibility = "visible";
+        searchRef.current.style.width = "250px";
+    }
+
+    const handleSubMenu = (e) => {
+        setShow(true);
+        setSubMenuCategory(e.target.innerText)
+
+    }
+    const hideSubMenu = () => {
+        setShow(false)
+    }
+
+    const handleSearchItem = () => {
+        getItemBySearch(searchVal, 9);
+        document.getElementById("cardSec").scrollIntoView();
+    }
+
+    const handleChange = (e) => {
+        setSearchVal(e.target.value);
+    }
+
+
     const visitProfile = () => {
         navigate("/profile")
     }
@@ -78,141 +114,52 @@ const Navbar = () => {
                 <div className={styles.navbar}>
                     <ul className={`${styles.navigation} latoFont`}>
                         <li className={styles.active}>
-                            <a href="#">
+                            <Link to={'/'}>
                                 Home
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#">
+                            <Link to={'/contact'}>
                                 Contact Us
-                            </a>
+                            </Link>
                         </li>
                         <li>
-                            <a href="#">
+                            <Link to={'/about'}>
                                 About Us
-                            </a>
+                            </Link>
                         </li>
                     </ul>
 
                     <div className={styles.links}>
                         <div className={styles.searchLinks}>
-                            <img src="images/search.svg" alt="" />
+                            <img onClick={showSearch} src="images/search.svg" alt="" />
+                            <input onChange={handleChange} onKeyDown={(e) => { e.key === "Enter" && e.target.value !== "" && handleSearchItem(); }} value={searchVal} ref={searchRef} type="text" className={styles.searchInput} placeholder='Search for your favourite products' />
+                            {/* <div className={styles.enterBtn}>Enter ↵</div> */}
                         </div>
                         <div className={styles.accountLinks}>
                             <img src="images/my-account.svg" alt="" />
                         </div>
                     </div>
-                    {/* <div className={styles.logo}>
-                        <Link to={"/"}>
-                            <img width={100} height={100} src='/images/mainLogo.png' />
-                        </Link>
-                    </div> */}
-                    {/* <div onClick={showNav} className={`${styles.toggle} ${nav ? styles.toggleActive : ""}`}></div>
-                    {
-                        currentUser ?
-                            <img width={50} onClick={visitProfile} className={styles.mobileProfile} height={50} loading='lazy' src={profilePic} alt="profile" /> :
-                            <li className={`${styles.sellerBtn} ${styles.mobileSellerBtn}`}>
-                                <Link className={styles.loginLink} to={"/login"}>Login</Link>
-                            </li>
-                    } */}
-                    {/* 
-                    <ul ref={ref} className='popFont'>
-                        <li><Link className={`${path === "/" ? `${styles.active}` : ""} ${styles.navLinks}`} to={"/"}>Home</Link>
-                        </li>
-                        <li><Link className={`${path === "/contact" ? `${styles.active}` : ""} ${styles.navLinks}`} to={"/contact"}>Contact Us</Link></li>
-                        <li><Link className={`${path === "/about" ? `${styles.active}` : ""} ${styles.navLinks}`} to={"/about"}>About Us</Link></li>
-                        {
-                            currentUser &&
-                            <li>
-                                <div className={styles.userIcon}>
-                                    <img width={100} height={100} loading='lazy' src={profilePic} alt="profile" />
-                                    <IoMdArrowDropdown onClick={() => { setShowDropdown(!showDropdown) }} id="dropdownDefaultButton" data-dropdown-toggle="dropdown" size={30} color='#fff' />
-                                    {showDropdown &&
-                                        <div className={styles.dropDown}>
-                                            <div className={styles.userData}>
-                                                <div>
-                                                    <img width={100} height={100} loading='lazy' src={profilePic} alt="profile" />
-                                                    <p>{displayName}</p>
-                                                </div>
-                                                <div>
-                                                    <Link to={"/profile"}>View profile</Link>
-                                                </div>
-                                            </div>
-                                            <hr />
-                                            <div className={styles.otherDrops}>
-                                                <div>
-                                                    <BiSpreadsheet size={20} /> <span>
-                                                        <Link to={"/myads"}>
-                                                            My Ads
-                                                        </Link>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div className={styles.otherDrops}>
-                                                <div>
-                                                    <BsChatDots size={20} /> <span>
-                                                        <Link to={"/chat"}>
-                                                            Inbox
-                                                        </Link>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div className={styles.otherDrops}>
-                                                <div>
-                                                    <AiOutlineHeart size={20} /> <span>
-                                                        <Link to={"/wishlist"}>
-                                                            My Wishlists
-                                                        </Link>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div className={styles.otherDrops}>
-                                                <div>
-                                                    <BiHelpCircle size={20} />
-                                                    <span>Help</span>
-                                                </div>
-                                            </div>
-                                            <hr />
-                                            <div onClick={handleLogout} className={styles.otherDrops}>Logout</div>
-                                        </div>
-                                    }
-                                </div>
 
-                            </li>
-                        }
-                        {currentUser &&
-                            <li className={styles.sellerBtn}>
-                                <Link className={`${path === "/sell" ? `${styles.active}` : ""} ${styles.seller}`} to={"/sell"}>
-                                    <div>
-                                        Sell
-                                        <AiOutlinePlusCircle />
-                                    </div>
-                                </Link>
-                            </li>
-                        }
-                        {!currentUser && (
-                            <li className={styles.sellerBtn}><Link className={`${path === "/login" ? `${styles.active}` : ""} ${styles.loginLink}`} to={"/login"}>Login</Link></li>
-                        )
-                        }
-                    </ul> */}
                 </div>
                 <div className={styles.navbarBottom}>
                     <img src="images/logo.png" alt="" />
-                    <div className={styles.navbarBottomLinks}>
-                        <a className={styles.navLinkBottom} href="#">Lab Items</a>
-                        <a className={styles.navLinkBottom} href="#">Room Items</a>
-                        <a className={styles.navLinkBottom} href="#">Books</a>
-                        <a className={styles.navLinkBottom} href="#">Sports Item</a>
-                        <a className={styles.navLinkBottom} href="#">Gadgets</a>
-                        <a className={styles.navLinkBottom} href="#">Accessories</a>
-                        <a className={styles.navLinkBottom} href="#">Clothes</a>
+                    <div onMouseLeave={hideSubMenu} className={styles.navbarBottomLinks}>
+                        <a onMouseEnter={handleSubMenu} className={styles.navLinkBottom} href="#">Lab Items</a>
+                        <a onMouseEnter={handleSubMenu} className={styles.navLinkBottom} href="#">Room Items</a>
+                        <a onMouseEnter={handleSubMenu} className={styles.navLinkBottom} href="#">Books</a>
+                        <a onMouseEnter={handleSubMenu} className={styles.navLinkBottom} href="#">Sports Items</a>
+                        <a onMouseEnter={handleSubMenu} className={styles.navLinkBottom} href="#">Gadgets</a>
+                        <a onMouseEnter={handleSubMenu} className={styles.navLinkBottom} href="#">Accessories</a>
+                        <a onMouseEnter={handleSubMenu} className={styles.navLinkBottom} href="#">Clothes</a>
+                        <SubCategory subMenuCategory={subMenuCategory} show={show} setShow={setShow} />
                     </div>
-                    <button className={styles.bookmarkBtn}>
+                    <Link to={'/sell'} className={styles.bookmarkBtn}>
                         <span className={styles.IconContainer}>
                             <FaPlus />
                         </span>
                         <p className={styles.text}>Sell</p>
-                    </button>
+                    </Link>
                 </div>
             </nav>
         </>

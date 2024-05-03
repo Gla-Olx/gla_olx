@@ -128,12 +128,12 @@ export const Home = () => {
     <>
       <main>
         <div className={`${styles.heroSec} popFont heroSection`}  >
-          <div className={`animatedGroup ${styles.searchBox}`} >
+          {/* <div className={`animatedGroup ${styles.searchBox}`} >
             <input disabled={searching} onKeyDown={(e) => { e.key === "Enter" && e.target.value !== "" && handleSearchItem(); }} type="text" value={search} onChange={handleSearch} className={`aliceFont ${styles.inputSearch}`} placeholder="What are you looking for?..." />
             <button disabled={searching} className={`${searching ? styles.animateSearch : ""} ${styles.searchBtn}`}>
               <span onClick={handleSearchItem}>Search</span> <BiSearchAlt2 color='#D9D9D9' size={25} />
             </button>
-          </div>
+          </div> */}
         </div>
       </main>
       <Category handleCategory={handleCategory} />
@@ -153,7 +153,7 @@ export const Home = () => {
             items?.length === 0 ? <NoItem /> :
               noContent ? <NoItem /> :
                 <div className={styles.productList}>
-                  {
+                  {/* {
                     items && !showSearchItem && items.map((item, i) => {
                       if (category && item.category.toLowerCase().includes(category.toLowerCase())) {
                         return (
@@ -166,8 +166,8 @@ export const Home = () => {
                         )
                       }
                     })
-                  }
-                  {showSearchItem && searchItem && searchItem.map((item, i) => {
+                  } */}
+                  {searchItem && searchItem.map((item, i) => {
                     return (
                       <Card item={item} key={i} />
                     )
