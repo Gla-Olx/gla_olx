@@ -11,9 +11,15 @@ import json
 class ProductCreateAPIView(APIView):
     def post(self, request, format=None):
         # data = json.loads(request.data['data'])
+<<<<<<< HEAD
 
         # print(data)
         serializer = ProductSerializer(data=request.data)
+=======
+        # print(data)
+        serializer=ProductSerializer(data=request.data)
+        # serializer = ProductSerializer(data=data)
+>>>>>>> 5a79fcaa8412ee5efb46696d3958766a980b9983
         urls=[]
         get_img_files = request.FILES.items()
         for file_key, file in get_img_files:
@@ -27,14 +33,27 @@ class ProductCreateAPIView(APIView):
             return Response({'success': True, 'message': 'Product created successfully', 'data': serializer.data, }, status=status.HTTP_201_CREATED)
         if serializer.errors:
             print(serializer.errors)
+            
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
 class ProductListAPIView(generics.ListAPIView):
     queryset = ProductDetails.objects.all()
     serializer_class = ProductViewSerializer
+    
+class FetchProducts(APIView):
+    def get(self, request):
+        intial_product_show= 9
+        current_user = self.request.query_params.get('current_user', None)
+        list_products= ProductDetails.objects.exclude(seller_id=current_user).order_by('-created_date')[:intial_product_show]
+        serializer = ProductViewSerializer(list_products, many=True)
+
+        return Response(serializer.data, status=status.HTTP_200_OK)
+        
+        
 
 class ProductDetailAPIView(generics.RetrieveAPIView):
     queryset = ProductDetails.objects.all()
+    
     serializer_class = ProductViewSerializer
     
 class ProductDeleteAPIView(generics.DestroyAPIView):
