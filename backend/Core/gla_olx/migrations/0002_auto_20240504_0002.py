@@ -6,6 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
+        ('gla_olx', '0001_initial'),
     ]
 
     operations = [
