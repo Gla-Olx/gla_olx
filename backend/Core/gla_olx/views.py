@@ -11,6 +11,9 @@ import json
 class ProductCreateAPIView(APIView):
     def post(self, request, format=None):
         # data = json.loads(request.data['data'])
+
+        # print(data)
+        serializer = ProductSerializer(data=request.data)
         # print(data)
         serializer=ProductSerializer(data=request.data)
         # serializer = ProductSerializer(data=data)

@@ -85,13 +85,13 @@ const GlxState = ({ children }) => {
     //  Function to get Item By Search 
     const getItemBySearch = async (search, limit) => {
         setShowSkeleton(true);
-        const res = await fetch(`${host}/api/search-item?search=${search}&limit=${limit}`, {
+        const res = await fetch(`${host2}/api/products?search=${search}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
             }
         })
-        const { data } = await res.json()
+        const data = await res.json()
         setSearchItem(data)
         setShowSkeleton(false);
     }
@@ -100,8 +100,6 @@ const GlxState = ({ children }) => {
     const createItem = async (item) => {
         setShowSkeleton(true);
 
-        // const { title, desc, price, category, subCategory, seller, sellerName, sellerPic } = item
-        // const metaData = { title, desc, price, category, subCategory, seller, sellerName, sellerPic }
         const formData = new FormData();
 
         for (let i = 0; i < item.images.length; i++) {

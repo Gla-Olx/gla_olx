@@ -2,7 +2,11 @@ from django.db import models
 import uuid
 
 class ProductDetails(models.Model):
+<<<<<<< HEAD
     product_id = models.UUIDField(primary_key=True,default=uuid.uuid4,unique=True, editable=False )
+=======
+    product_id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False, unique=True)
+>>>>>>> 67fab3a0a98588bbe7e1a9e9fd51daee89acf7e0
     product_title = models.CharField(max_length=250, blank=False, null=False)
     product_price = models.IntegerField()
     product_desc = models.TextField()
