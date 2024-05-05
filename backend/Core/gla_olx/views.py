@@ -48,8 +48,18 @@ class FetchProducts(APIView):
 
 class ProductDetailAPIView(generics.RetrieveAPIView):
     queryset = ProductDetails.objects.all()
-    
     serializer_class = ProductViewSerializer
+
+    def get(self, request, *args, **kwargs):
+        instance = self.get_object()
+        product_category = instance.product_category  
+        similar_products = ProductDetails.objects.filter(product_category=product_category).exclude(pk=instance.pk)
+        serializer = self.get_serializer(instance)
+        similar_serializer = self.get_serializer(similar_products, many=True)
+        return Response({
+            'product_details': serializer.data,
+            'similar_products': similar_serializer.data
+        })
     
 class ProductDeleteAPIView(generics.DestroyAPIView):
     queryset = ProductDetails.objects.all()

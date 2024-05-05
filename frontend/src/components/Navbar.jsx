@@ -149,18 +149,18 @@ const Navbar = () => {
 
                     <div className={styles.links}>
                         <div className={styles.searchLinks}>
-                            <img onClick={showSearch} src="images/search.svg" alt="" />
+                            <img onClick={showSearch} src="/images/search.svg" alt="" />
                             <input onChange={handleChange} onKeyDown={(e) => { e.key === "Enter" && e.target.value !== "" && handleSearchItem(); }} value={search} ref={searchRef} type="text" className={styles.searchInput} placeholder='Search for your favourite products' />
                             {/* <div className={styles.enterBtn}>Enter ↵</div> */}
                         </div>
                         <div className={styles.accountLinks}>
-                            <img onClick={visitProfile} src="images/my-account.svg" alt="" />
+                            <img onClick={visitProfile} src="/images/my-account.svg" alt="" />
                         </div>
                     </div>
 
                 </div>
                 <div className={`${bottomNav?styles.fixedBottomNavbar:""} ${styles.navbarBottom}`}>
-                    <img src="images/logo.png" alt="" />
+                    <img src="/images/logo.png" alt="" />
                     {/* <div className="loaderBox">
                         <h1 className="glaLoader">
                             GLA

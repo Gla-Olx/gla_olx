@@ -70,9 +70,9 @@ const Card = ({ item }) => {
                 </span> */}
                 {/* <div className={styles.ribbon} ><BsFillLightningChargeFill /> Trending</div> */}
                 <div className={styles.productImg}>
-                    <img src={item.proimg1} alt="img" width={500} height={100} />
+                    <img src={item.proimg5} alt="img" width={500} height={100} />
                 </div>
-                <Link to={`/product/${item.id ? item.id : item.productId}`} className={styles.productDetails}>
+                <Link to={`/product/${item.id ? item.id : item.product_id}`} className={styles.productDetails}>
                     <div className={styles.productPrice}>
                         <span>₹ {item.product_price}</span>
                     </div>
@@ -91,7 +91,7 @@ const Card = ({ item }) => {
                         </p>
                     </div>
                     <span className={styles.date}>
-                        {item.createdAt && new Date(item.createdAt).toDateString().substring(3)}
+                        {item.created_date && new Date(item.created_date).toDateString().substring(3)}
                     </span>
                 </Link>
             </div>

@@ -12,13 +12,13 @@ const categories = {
 }
 
 const categoriesImg = {
-    "Lab Items": "images/lab-items.jpg",
-    "Room Items": "images/room-items.jpg",
-    "Books": "images/books.jpg",
-    "Sports Items": "images/sports-items.jpg",
-    "Gadgets": "images/gadgets.jpg",
-    "Accessories": "images/accessories.jpg",
-    "Clothes": "images/clothes.jpg",
+    "Lab Items": "/images/lab-items.jpg",
+    "Room Items": "/images/room-items.jpg",
+    "Books": "/images/books.jpg",
+    "Sports Items": "/images/sports-items.jpg",
+    "Gadgets": "/images/gadgets.jpg",
+    "Accessories": "/images/accessories.jpg",
+    "Clothes": "/images/clothes.jpg",
 }
 
 const SubCategory = ({ show, subMenuCategory }) => {

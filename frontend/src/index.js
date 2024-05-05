@@ -70,7 +70,7 @@ const router = createBrowserRouter([
       {
         path: "/product/:id", element: <Product />, loader: async ({ request, params }) => {
           return fetch(
-            `http://localhost:8080/api/single-item?tempToken=${params.id}`
+            `http://localhost:8000/api/products/${params.id}/`
           );
         },
       },
