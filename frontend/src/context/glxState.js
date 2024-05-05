@@ -21,6 +21,7 @@ const GlxState = ({ children }) => {
     const [message, setMessage] = useState("")
     const [showSkeleton, setShowSkeleton] = useState(false)
     const [searchItem, setSearchItem] = useState([])
+    const [search, setSearch] = useState("");
     const host = "http://localhost:8080"
     const host2 = "http://localhost:8000"
 
@@ -182,7 +183,7 @@ const GlxState = ({ children }) => {
         }, 2500)
     }
     return (
-        <glxContext.Provider value={{ getItems, createItem, getItem, deleteItem, getItemBySearch, items, addUser, searchItem, setSearchItem, getChattingWith, getAllUsersData, users, show, message, setMessage, setShow, getUserItem, userItems, showSkeleton, loadMoreBtn, showAlert }}>
+        <glxContext.Provider value={{ getItems, createItem, getItem, deleteItem, getItemBySearch, items, addUser, searchItem, setSearchItem, getChattingWith, getAllUsersData, users, show, message, setMessage, setShow, getUserItem, userItems, showSkeleton, loadMoreBtn, showAlert, search, setSearch }}>
             {children}
         </glxContext.Provider>
     )

@@ -5,7 +5,7 @@ import SplitTextJS from "../utils/SplitTextJS.js"
 import image from "../images/neerajsir.png"
 
 
-const LoaderScreen = ({setIsLoaded}) => {
+const LoaderScreen = ({ setIsLoaded }) => {
     gsap.registerPlugin(useGSAP);
 
 
@@ -30,7 +30,7 @@ const LoaderScreen = ({setIsLoaded}) => {
                 opacity: 1,
                 stagger: 0.05,
             }, "<1")
-        
+
 
 
         tl.from(split2.chars, {
@@ -65,7 +65,7 @@ const LoaderScreen = ({setIsLoaded}) => {
                     split2.chars[0].innerHTML = `<img className="oPic" src=${image} alt="" /> `
                 }, 200);
             },
-            onComplete: ()=>{
+            onComplete: () => {
                 setIsLoaded(true);
             }
         })

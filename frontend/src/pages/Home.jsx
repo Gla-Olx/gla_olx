@@ -8,6 +8,13 @@ import Category from '../components/Category';
 import NoItem from '../components/NoItem';
 import LoadingComponent from '../components/LoadingComponent';
 import { IoIosClose } from "react-icons/io";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Navigation } from 'swiper/modules';
+import 'swiper/css';
+import 'swiper/css/navigation';
+
+
+
 
 // GSAP
 import { gsap } from "gsap";
@@ -22,38 +29,29 @@ export const Home = () => {
 
 
   const [category, setCategory] = useState("");
-  const [search, setSearch] = useState("");
   const [noContent, setNoContent] = useState(false);
   const [currentUser, setCurrentUser] = useState("");
-  const [showSearchItem, setShowSearchItem] = useState("");
-  const [searching, setSearching] = useState(false);
   const [limit, setLimit] = useState(9);
 
 
   const context = useContext(glxContext);
-  const { getItem, items, getItemBySearch, searchItem, setSearchItem, showSkeleton, loadMoreBtn, getItems } = context;
+  const { getItem, items, searchItem, showSkeleton, loadMoreBtn, getItems, search, setSearch } = context;
 
   useEffect(() => {
-    gsap.to('.animatedGroup', {
-      scrollTrigger: {
-        trigger: '.heroSection',
-        start: '90% top',
-        scrub: true,
-        end: '30% 10%',
-      },
-      position: "fixed",
-      duration: 1
-    });
+
     let currentUser = localStorage.getItem("currentUserId")
     if (currentUser) {
       setCurrentUser(currentUser)
     }
-    // getItem(limit, currentUser)
 
     getItems()
-
-
   }, [])
+
+  useEffect(() => {
+    if (search !== "" && searchItem.length === 0) {
+      setNoContent(true)
+    }
+  }, [searchItem])
 
   // Load More Items
   const loadMore = () => {
@@ -66,10 +64,9 @@ export const Home = () => {
   // Filtering by Category
   const handleCategory = (val) => {
     removeAllFilters();
-    setShowSearchItem(false)
     setCategory(val)
     const ite = items.filter(item => {
-      if (item.category.includes(val)) {
+      if (item.product_category.includes(val)) {
         return item
       }
     })
@@ -84,41 +81,15 @@ export const Home = () => {
   const handleSearch = (e) => {
     setSearch(e.target.value)
     if (e.target.value === "") {
-      setShowSearchItem(false)
       setNoContent(false)
     }
   }
-  const handleSearchItem = () => {
-    setSearching(true);
-    const ite = items.filter(item => {
-      if (item.title.toLowerCase().includes(search.toLowerCase())) {
-        return item
-      }
-    })
-    if (ite.length === 0) {
-      getItemBySearch(search, limit)
-      if (searchItem.length === 0) {
 
-        setNoContent(true)
-        setShowSearchItem(false)
-      } else {
-        setShowSearchItem(true)
-      }
-      document.getElementById("cardSec").scrollIntoView();
-    } else {
-      document.getElementById("cardSec").scrollIntoView();
-      setShowSearchItem(true)
-      setSearchItem(ite)
-      setNoContent(false)
-    }
-    setSearching(false);
-  }
 
 
   // Remove all Filters ie. Category and Search
   const removeAllFilters = () => {
     setCategory("")
-    setShowSearchItem(false)
     setNoContent(false)
     setSearch("")
   }
@@ -128,15 +99,49 @@ export const Home = () => {
     <>
       <main>
         <div className={`${styles.heroSec} popFont heroSection`}  >
-          {/* <div className={`animatedGroup ${styles.searchBox}`} >
-            <input disabled={searching} onKeyDown={(e) => { e.key === "Enter" && e.target.value !== "" && handleSearchItem(); }} type="text" value={search} onChange={handleSearch} className={`aliceFont ${styles.inputSearch}`} placeholder="What are you looking for?..." />
-            <button disabled={searching} className={`${searching ? styles.animateSearch : ""} ${styles.searchBtn}`}>
-              <span onClick={handleSearchItem}>Search</span> <BiSearchAlt2 color='#D9D9D9' size={25} />
-            </button>
-          </div> */}
+          <Swiper style={{ height: "100%" }} loop={true} centeredSlides={true} navigation={true} autoplay={{delay: 3000}} modules={[Autoplay, Navigation]}>
+            <SwiperSlide>
+              <div className={styles.sliderContent} style={{ background: "#FDE44C" }}>
+                <div className={styles.imgContainer}>
+                  <img src="images/slider1.webp" alt="" />
+                </div>
+                <div className={styles.sliderText}>
+                  <h3 style={{ color: "#42413D" }}>The Shot <br />Showcase</h3>
+                  <p>Blow-dry and style in one simple step!</p>
+                  <button className={`popFont ${styles.sliderBtn}`}>Buy Now</button>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+              <div className={styles.sliderContent} style={{background: "#D4E9FF"}}>
+                <div className={styles.imgContainer}>
+                  <img src="images/slider2.webp" alt="" />
+                </div>
+                <div className={styles.sliderText}>
+                  <h3 style={{ color: "#6D8CC0" }}>Go for glossy</h3>
+                  <p>New to the Liquid Glass Collection!</p>
+                  <button className={`popFont ${styles.sliderBtn}`}>Buy Now</button>
+                </div>
+              </div>
+            </SwiperSlide>
+            <SwiperSlide>
+            <div className={styles.sliderContent} style={{background: "#F1E4E1"}}>
+                <div className={styles.imgContainer}>
+                  <img src="images/slider3.webp" alt="" />
+                </div>
+                <div className={styles.sliderText}>
+                  <h3 style={{ color: "#824459" }}>Meet your rescue <br />Crew</h3>
+                  <p>New to the Liquid Glass Collection!</p>
+                  <button className={`popFont ${styles.sliderBtn}`}>Buy Now</button>
+                </div>
+              </div>
+            </SwiperSlide>
+
+          </Swiper>
+
         </div>
       </main>
-      <Category handleCategory={handleCategory} />
+      <Category removeAllFilters={removeAllFilters} handleCategory={handleCategory} />
 
       <section className={styles.cardSec} id='cardSec'>
         {
@@ -153,9 +158,9 @@ export const Home = () => {
             items?.length === 0 ? <NoItem /> :
               noContent ? <NoItem /> :
                 <div className={styles.productList}>
-                  {/* {
-                    items && !showSearchItem && items.map((item, i) => {
-                      if (category && item.category.toLowerCase().includes(category.toLowerCase())) {
+                  {
+                    items && search === "" && items.map((item, i) => {
+                      if (category && item.product_category.toLowerCase().includes(category.toLowerCase())) {
                         return (
                           <Card item={item} key={i} />
                         )
@@ -166,8 +171,8 @@ export const Home = () => {
                         )
                       }
                     })
-                  } */}
-                  {searchItem && searchItem.map((item, i) => {
+                  }
+                  {search !== "" && searchItem && searchItem.map((item, i) => {
                     return (
                       <Card item={item} key={i} />
                     )
