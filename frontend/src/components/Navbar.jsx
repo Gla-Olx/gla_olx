@@ -25,10 +25,11 @@ const Navbar = () => {
     const [displayName, setDisplayName] = useState("")
     const [show, setShow] = useState(false)
     const [subMenuCategory, setSubMenuCategory] = useState("");
-    const [searchVal, setSearchVal] = useState("")
+    const [mainNav, setMainNav] = useState(false)
+    const [bottomNav, setBottomNav] = useState(false)
 
     const context = useContext(glxContext);
-    const { getItemBySearch, searchItem } = context;
+    const { getItemBySearch, searchItem, search, setSearch } = context;
 
 
     let path = useLocation().pathname;
@@ -50,6 +51,22 @@ const Navbar = () => {
         if (ref.current) {
             ref.current.style.left = "100%";
         }
+
+        // after scrolling for more than 20% and if scroll up then show the navbar
+        // let prevScrollpos = window.scrollY;
+        // window.onscroll = function () {
+        //     let currentScrollPos = window.scrollY;
+        //     if (prevScrollpos > currentScrollPos) {
+        //         setMainNav(true);
+        //         setBottomNav(true);
+
+        //     } else {
+        //         setMainNav(false);
+        //         setBottomNav(false);
+        //     }
+        //     prevScrollpos = currentScrollPos;
+        // }
+       
 
     }, [path])
 
@@ -94,12 +111,12 @@ const Navbar = () => {
     }
 
     const handleSearchItem = () => {
-        getItemBySearch(searchVal, 9);
+        getItemBySearch(search, 9);
         document.getElementById("cardSec").scrollIntoView();
     }
 
     const handleChange = (e) => {
-        setSearchVal(e.target.value);
+        setSearch(e.target.value);
     }
 
 
@@ -111,7 +128,7 @@ const Navbar = () => {
     return (
         <>
             <nav>
-                <div className={styles.navbar}>
+                <div  className={`${mainNav?styles.fixedMainNavbar:""} ${styles.navbar}`}>
                     <ul className={`${styles.navigation} latoFont`}>
                         <li className={styles.active}>
                             <Link to={'/'}>
@@ -132,18 +149,28 @@ const Navbar = () => {
 
                     <div className={styles.links}>
                         <div className={styles.searchLinks}>
-                            <img onClick={showSearch} src="images/search.svg" alt="" />
-                            <input onChange={handleChange} onKeyDown={(e) => { e.key === "Enter" && e.target.value !== "" && handleSearchItem(); }} value={searchVal} ref={searchRef} type="text" className={styles.searchInput} placeholder='Search for your favourite products' />
+                            <img onClick={showSearch} src="/images/search.svg" alt="" />
+                            <input onChange={handleChange} onKeyDown={(e) => { e.key === "Enter" && e.target.value !== "" && handleSearchItem(); }} value={search} ref={searchRef} type="text" className={styles.searchInput} placeholder='Search for your favourite products' />
                             {/* <div className={styles.enterBtn}>Enter ↵</div> */}
                         </div>
                         <div className={styles.accountLinks}>
-                            <img src="images/my-account.svg" alt="" />
+                            <img onClick={visitProfile} src="/images/my-account.svg" alt="" />
                         </div>
                     </div>
 
                 </div>
-                <div className={styles.navbarBottom}>
-                    <img src="images/logo.png" alt="" />
+                <div className={`${bottomNav?styles.fixedBottomNavbar:""} ${styles.navbarBottom}`}>
+                    <img src="/images/logo.png" alt="" />
+                    {/* <div className="loaderBox">
+                        <h1 className="glaLoader">
+                            GLA
+                        </h1>
+                        <span className="dash"></span>
+                        <h1 className="olxLoader">
+                            <img src="images/neerajsir.png" alt="" />
+                            OLX
+                        </h1>
+                    </div> */}
                     <div onMouseLeave={hideSubMenu} className={styles.navbarBottomLinks}>
                         <a onMouseEnter={handleSubMenu} className={styles.navLinkBottom} href="#">Lab Items</a>
                         <a onMouseEnter={handleSubMenu} className={styles.navLinkBottom} href="#">Room Items</a>

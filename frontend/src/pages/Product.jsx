@@ -11,7 +11,7 @@ import glxContext from '../context/glxContext'
 
 
 export const Product = () => {
-    const { item, similarItems } = useLoaderData().data;    
+    const { product_details: item, similar_products:similarItems } = useLoaderData();    
     const [currentUser, setCurrentUser] = useState(null)
     const navigate = useNavigate()
     const [diff, setDiff] = useState("")
@@ -20,14 +20,14 @@ export const Product = () => {
     const [chatData, setChatData] = useState({ currentUser: "", seller: "", item: "", itemPrice: "" })
     const context = useContext(glxContext)
     const { showAlert, setMessage } = context
-    const host = "http://localhost:8080"
+    const host = "http://localhost:8000"
 
     useEffect(() => {
         checkWishlist();
         setCurrentUser(localStorage.getItem("currentUserId"));
         checkView();
         let today = new Date()
-        let createdAt = new Date(item.createdAt)
+        let createdAt = new Date(item.created_date)
         let diff = today - createdAt
         let mins = Math.floor(diff / (1000 * 60))
         let hours = Math.floor(diff / (1000 * 60 * 60))
@@ -44,22 +44,22 @@ export const Product = () => {
 
     }, [])
     const [hide, setHide] = useState(true)
-    let images = item.images
+    let images = [item.proimg1, item.proimg2, item.proimg3, item.proimg4, item.proimg5]
     const [mainSlider, setMainSlider] = useState(images[4])
 
     const handleSeller = (seller) => {
         let currentUser = localStorage.getItem("currentUserId")
         setShowSafetyTips(true)
-        setChatData({ currentUser, seller, item: item.title, itemPrice: item.price })
+        setChatData({ currentUser, seller, item: item.product_title, itemPrice: item.product_price })
     }
     const checkView = async () => {
         let viewed = localStorage.getItem("viewed")
         if (viewed) {
-            if (viewed.includes(item._id)) {
+            if (viewed.includes(item.product_id)) {
                 return
             }
             viewed = JSON.parse(viewed)
-            viewed.push(item._id)
+            viewed.push(item.product_id)
             localStorage.setItem("viewed", JSON.stringify(viewed))
             const res = await fetch(host+"/api/view", {
                 method: "POST",
@@ -71,13 +71,13 @@ export const Product = () => {
             const data = await res.json()
 
         } else {
-            localStorage.setItem("viewed", JSON.stringify([item._id]))
+            localStorage.setItem("viewed", JSON.stringify([item.product_id]))
             const res = await fetch(host+"/api/view", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ item: item._id })
+                body: JSON.stringify({ item: item.product_id })
             })
             const data = await res.json()
         }
@@ -113,10 +113,10 @@ export const Product = () => {
     const handleWishlist = async () => {
         let userId = localStorage.getItem("currentUserId")
         let product = {
-            seller: item.seller,
-            productId: item._id,
-            title: item.title,
-            price: item.price,
+            seller: item.seller_id,
+            productId: item.product_id,
+            title: item.product_title,
+            price: item.product_price,
             images: item.images[4]
         }
         if (hide) {
@@ -164,7 +164,7 @@ export const Product = () => {
     }
 
     const handleUserProfile = () => {
-        navigate(`/profile?userProfile=${item.seller}`)
+        navigate(`/profile?userProfile=${item.seller_id}`)
     }
 
 
@@ -183,13 +183,13 @@ export const Product = () => {
                         </Link>
                     </li>
                     <li>
-                        <Link to={`/category/${item.category}`}>
-                            <span>{item.category} <IoIosArrowForward size={15} color='#20494E' /></span>
+                        <Link to={`/category/${item.product_category}`}>
+                            <span>{item.product_category} <IoIosArrowForward size={15} color='#20494E' /></span>
                         </Link>
                     </li>
                     <li>
-                        <Link to={`/category/${item.category}#${item.subCategory}`}>
-                            <span>{item.subCategory} <IoIosArrowForward size={15} color='#20494E' /></span>
+                        <Link to={`/category/${item.product_category}#${item.product_subcategory}`}>
+                            <span>{item.product_subcategory} <IoIosArrowForward size={15} color='#20494E' /></span>
                         </Link>
                     </li>
                     <li>
@@ -216,7 +216,7 @@ export const Product = () => {
                     <div className={styles.itemBox}>
                         <div className={styles.item1}>
                             <div className={styles.price}>
-                                <span className='notoFont'>₹{item.price}</span>
+                                <span className='notoFont'>₹{item.product_price}</span>
                                 <span> <AiOutlineShareAlt onClick={copyLink} size={30} />
                                     {
                                         currentUser === item.seller ? null : <>
@@ -226,7 +226,7 @@ export const Product = () => {
                                 </span>
                             </div>
                             <div  className={`notoFont ${styles.title}`}>
-                                Product: {item.title}
+                                Product: {item.product_title}
                             </div>
                             <div className='notoFont'>
                                 Added: {diff}
@@ -235,15 +235,15 @@ export const Product = () => {
                         <div className={styles.item2}>
                             <div className={styles.profile}>
                                 <div>
-                                    <img width={100} height={100} src={item.sellerPic} alt="img" />
+                                    <img width={100} height={100} src={item.seller_picture} alt="img" />
                                 </div>
                                 <div className='notoFont' onClick={handleUserProfile}>
-                                    {item.sellerName} <IoIosArrowForward color='#BBBEBF' size={25} />
+                                    {item.seller_name} <IoIosArrowForward color='#BBBEBF' size={25} />
                                 </div>
                             </div>
                             {
                                 currentUser === item.seller ? null :
-                                    <button onClick={() => { handleSeller(item.seller) }} className={`notoFont ${styles.buttonChat}`}>
+                                    <button onClick={() => { handleSeller(item.seller_id) }} className={`notoFont ${styles.buttonChat}`}>
                                         Chat with seller
                                     </button>
                             }
@@ -273,15 +273,15 @@ export const Product = () => {
                                     <span>Category</span>
                                 </div>
                                 <div>
-                                    <span>{item.category}</span>
-                                    <span>{item.subCategory}</span>
+                                    <span>{item.product_category}</span>
+                                    <span>{item.product_subcategory}</span>
                                 </div>
                             </div>
                         </div>
                         <div className={styles.details}>
                             <h4>Description:</h4>
                             <p>
-                                {item.desc}
+                                {item.product_desc}
                             </p>
                         </div>
                     </div>
@@ -296,7 +296,7 @@ export const Product = () => {
                             {
                                 similarItems.map((item) => {
                                     return (
-                                        <Card key={item._id} item={item} />
+                                        <Card key={item.product_id} item={item} />
                                     )
                                 })
                             }

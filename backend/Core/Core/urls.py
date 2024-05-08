@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/products/create/', ProductCreateAPIView.as_view(), name='product_create'),
     path('api/products/', FetchProducts.as_view(), name='product_list'),
-    path('api/products/<int:pk>/', ProductDetailAPIView.as_view(), name='product_detail'),
+    path('api/products/<uuid:pk>/', ProductDetailAPIView.as_view(), name='product_detail'),
     path('api/products/<int:pk>/delete/', ProductDeleteAPIView.as_view(), name='product_delete'),
     path('api/products/update/', ProductUpdateAPIView.as_view(), name='product_update'),
     path('api/products', ProductFilterListAPIView.as_view(), name='product_filter'),
