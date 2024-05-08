@@ -12,11 +12,11 @@ import json
 
 class ProductCreateAPIView(APIView):
     def post(self, request, format=None):
-        data = json.loads(request.data['data'])
+        # data = json.loads(request.data['data'])
 
         # print(data)
-        # serializer=ProductSerializer(data=request.data)
-        serializer = ProductSerializer(data=data)
+        serializer=ProductSerializer(data=request.data)
+        # serializer = ProductSerializer(data=data)
         urls=[]
         get_img_files = request.FILES.items()
         for file_key, file in get_img_files:
@@ -106,9 +106,9 @@ class ProductFilterListAPIView(generics.ListAPIView):
 
 class WishListItemAPI(APIView):
         def post(self, request, format=None):
-            
             data=WishListProductSerializer(data=request.data)
             if data.is_valid():
+                print(data.validated_data)
                 data.save()
                 return Response({'success': True, 'message': 'Product added to Wishlist', 'data': data.data, }, status=status.HTTP_201_CREATED)
             if data.errors:

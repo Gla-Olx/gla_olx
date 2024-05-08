@@ -17,4 +17,4 @@ class ProductViewSerializer(serializers.ModelSerializer):
 class WishListProductSerializer(serializers.ModelSerializer):
     class Meta:
         model= WishListItem
-        fields = "__all__"
+        fields = ['userid', 'product_id']
