@@ -115,3 +115,20 @@ class WishListItemAPI(APIView):
                 print(data.errors)
                 
             return Response(data.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class FetchWishListItems(APIView):
+    def get(self, request):
+        current_user = self.request.query_params.get('current_user', None)
+        product_id = self.request.query_params.get('product_id', None)
+        if product_id:
+            try:
+                wishlist_items= WishListItem.objects.get(userid=current_user, product_id=product_id)            
+                serializer = WishListProductSerializer(wishlist_items)
+                return Response(serializer.data, status=status.HTTP_200_OK)
+            except WishListItem.DoesNotExist:
+                return Response({'success': False, 'message': 'Product not found in Wishlist', }, status=status.HTTP_404_NOT_FOUND)
+
+        wishlist_items= WishListItem.objects.filter(userid=current_user)
+        serializer = WishListProductSerializer(wishlist_items, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
