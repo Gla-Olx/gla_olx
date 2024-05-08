@@ -13,3 +13,8 @@ class ProductViewSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductDetails
         fields = "__all__"
+
+class WishListProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model= WishListItem
+        fields = "__all__"

@@ -4,9 +4,11 @@ from rest_framework import status, generics
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from .models import *
-from .serializers import ProductSerializer, ProductViewSerializer
+from .serializers import ProductSerializer, ProductViewSerializer, WishListProductSerializer
 import cloudinary
 import json
+ 
+
 
 class ProductCreateAPIView(APIView):
     def post(self, request, format=None):
@@ -94,3 +96,14 @@ class ProductFilterListAPIView(generics.ListAPIView):
             
         return queryset
 
+class WishListItemAPI(APIView):
+        def post(self, request, format=None):
+            
+            data=WishListProductSerializer(data=request.data)
+            if data.is_valid():
+                data.save()
+                return Response({'success': True, 'message': 'Product added to Wishlist', 'data': data.data, }, status=status.HTTP_201_CREATED)
+            if data.errors:
+                print(data.errors)
+                
+            return Response(data.errors, status=status.HTTP_400_BAD_REQUEST)

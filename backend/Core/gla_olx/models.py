@@ -18,3 +18,13 @@ class ProductDetails(models.Model):
     proimg4 = models.URLField()
     proimg5 = models.URLField()
     created_date= models.DateField(auto_now_add=True, null=True)
+    
+    
+class WishListItem(models.Model):
+    userid = models.CharField(max_length=120)
+    product_id = models.ForeignKey(ProductDetails, on_delete=models.CASCADE)
+    
+    def __str__(self):
+        return self.product_id
+    
+    
